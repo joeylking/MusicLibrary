@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import Search from './Search/Search';
 import SongList from './SongList/SongList';
+import AddSong from './AddSong/AddSong';
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +37,9 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Search />
         <SongList songs={this.state.songs} deleteSong={this.deleteSong} />
+        <AddSong />
       </div>
     );
   }
