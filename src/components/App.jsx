@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       songs: [],
+      filteredSongs: [],
     };
   }
 
@@ -21,6 +22,7 @@ class App extends Component {
     const request = await axios.get('http://127.0.0.1:8000/music/');
     this.setState({
       songs: request.data,
+      filteredSongs: request.data,
     });
   }
 
@@ -34,11 +36,33 @@ class App extends Component {
     });
   };
 
+  filterSongs = query => {
+    const filtered = this.state.songs.filter(song => {
+      if (query === '') {
+        return song;
+      } else if (
+        song.title.toLowerCase().includes(query.toLowerCase()) ||
+        song.artist.toLowerCase().includes(query.toLowerCase()) ||
+        song.album.toLowerCase().includes(query.toLowerCase()) ||
+        song.genre.toLowerCase().includes(query.toLowerCase()) ||
+        song.release_date.toString().includes(query)
+      ) {
+        return song;
+      }
+    });
+    this.setState({
+      filteredSongs: filtered,
+    });
+  };
+
   render() {
     return (
       <div className='App'>
-        <Search />
-        <SongList songs={this.state.songs} deleteSong={this.deleteSong} />
+        <Search filterSongs={this.filterSongs} />
+        <SongList
+          songs={this.state.filteredSongs}
+          deleteSong={this.deleteSong}
+        />
         <AddSong />
       </div>
     );

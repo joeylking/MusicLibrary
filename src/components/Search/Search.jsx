@@ -1,16 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
-const Search = () => {
+const Search = props => {
+  const handleChange = event => {
+    props.filterSongs(event.target.value);
+  };
+
   return (
-    <form action=''>
-      <input
-        type='text'
-        id='music-search'
-        placeholder='Search your music'
-        name='search'
-      />
-      <button type='submit'>Search</button>
-    </form>
+    <input
+      type='text'
+      id='music-search'
+      placeholder='Search your music'
+      name='search'
+      onChange={handleChange}
+    />
   );
 };
 
