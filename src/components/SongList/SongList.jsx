@@ -12,7 +12,15 @@ const SongList = () => {
     }
     getSongs();
   }, []);
-  console.log(songs);
+
+  const deleteSong = id => {
+    axios.delete(`http://127.0.0.1:8000/music/${id}`).then(res => {
+      console.log(res);
+      const newList = songs.filter(song => id !== song.id);
+      setSongs(newList);
+    });
+  };
+
   return (
     <table>
       <thead>
@@ -32,8 +40,18 @@ const SongList = () => {
             <td>{song.album}</td>
             <td>{song.genre}</td>
             <td>{song.release_date}</td>
-            <button>Edit</button>
-            <button>Delete</button>
+            <td>
+              <button>Edit</button>
+            </td>
+            <td>
+              <button
+                onClick={() => {
+                  deleteSong(song.id);
+                }}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
