@@ -22,10 +22,20 @@ class App extends Component {
     });
   }
 
+  deleteSong = id => {
+    axios.delete(`http://127.0.0.1:8000/music/${id}`).then(res => {
+      console.log(res);
+      const newList = this.state.songs.filter(song => id !== song.id);
+      this.setState({
+        songs: newList,
+      });
+    });
+  };
+
   render() {
     return (
       <div className='App'>
-        <SongList songs={this.state.songs} />
+        <SongList songs={this.state.songs} deleteSong={this.deleteSong} />
       </div>
     );
   }

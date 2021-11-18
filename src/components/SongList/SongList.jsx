@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const SongList = props => {
-  //   const deleteSong = id => {
-  //     axios.delete(`http://127.0.0.1:8000/music/${id}`).then(res => {
-  //       console.log(res);
-  //       const newList = songs.filter(song => id !== song.id);
-  //       setSongs(newList);
-  //     });
-  //   };
-
   return (
     <table className='table table-dark'>
       <thead>
@@ -38,15 +28,15 @@ const SongList = props => {
               </button>
             </td>
             <td>
-              {/* <button
+              <button
                 type='button'
                 className='btn btn-danger'
                 onClick={() => {
-                  deleteSong(song.id);
+                  props.deleteSong(song.id);
                 }}
               >
                 Delete
-              </button> */}
+              </button>
             </td>
           </tr>
         ))}
