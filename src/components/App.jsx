@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       songs: [],
       filteredSongs: [],
+      currentQuery: '',
     };
   }
 
@@ -37,9 +38,15 @@ class App extends Component {
 
   addSong = newSong => {
     axios.post('http://127.0.0.1:8000/music/', newSong).then(res =>
-      this.setState(prevState => ({
-        songs: [...prevState.songs, res.data],
-      }))
+      this.setState(
+        prevState => ({
+          songs: [...prevState.songs, res.data],
+        }),
+        () => {
+          console.log(this.state.songs);
+          this.filterSongs(this.state.currentQuery);
+        }
+      )
     );
   };
 
@@ -59,6 +66,7 @@ class App extends Component {
     });
     this.setState({
       filteredSongs: filtered,
+      currentQuery: query,
     });
   };
 
