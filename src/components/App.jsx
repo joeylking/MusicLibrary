@@ -30,9 +30,14 @@ class App extends Component {
   deleteSong = id => {
     axios.delete(`http://127.0.0.1:8000/music/${id}`).then(res => {
       const newList = this.state.songs.filter(song => id !== song.id);
-      this.setState({
-        songs: newList,
-      });
+      this.setState(
+        {
+          songs: newList,
+        },
+        () => {
+          this.filterSongs(this.state.currentQuery);
+        }
+      );
     });
   };
 
@@ -43,7 +48,6 @@ class App extends Component {
           songs: [...prevState.songs, res.data],
         }),
         () => {
-          console.log(this.state.songs);
           this.filterSongs(this.state.currentQuery);
         }
       )
