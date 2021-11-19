@@ -28,12 +28,19 @@ class App extends Component {
 
   deleteSong = id => {
     axios.delete(`http://127.0.0.1:8000/music/${id}`).then(res => {
-      console.log(res);
       const newList = this.state.songs.filter(song => id !== song.id);
       this.setState({
         songs: newList,
       });
     });
+  };
+
+  addSong = newSong => {
+    axios.post('http://127.0.0.1:8000/music/', newSong).then(res =>
+      this.setState(prevState => ({
+        songs: [...prevState.songs, res.data],
+      }))
+    );
   };
 
   filterSongs = query => {
@@ -63,7 +70,7 @@ class App extends Component {
           songs={this.state.filteredSongs}
           deleteSong={this.deleteSong}
         />
-        <AddSong />
+        <AddSong addSong={this.addSong} />
       </div>
     );
   }

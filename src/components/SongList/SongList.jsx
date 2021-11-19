@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
 const SongList = props => {
+  console.log(props);
   return (
     <table className='table table-dark'>
       <thead>

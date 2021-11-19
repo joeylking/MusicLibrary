@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import './Search.css';
 
 const Search = props => {
   const handleChange = event => {
